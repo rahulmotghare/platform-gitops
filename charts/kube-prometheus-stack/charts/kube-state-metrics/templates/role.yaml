@@ -34,13 +34,13 @@ rules:
   verbs: ["list", "watch"]
 {{ end -}}
 {{ if has "daemonsets" $.Values.collectors }}
-- apiGroups: ["apps"]
+- apiGroups: ["extensions", "apps"]
   resources:
   - daemonsets
   verbs: ["list", "watch"]
 {{ end -}}
 {{ if has "deployments" $.Values.collectors }}
-- apiGroups: ["apps"]
+- apiGroups: ["extensions", "apps"]
   resources:
   - deployments
   verbs: ["list", "watch"]
@@ -64,7 +64,7 @@ rules:
   verbs: ["list", "watch"]
 {{ end -}}
 {{ if has "ingresses" $.Values.collectors }}
-- apiGroups: ["networking.k8s.io"]
+- apiGroups: ["extensions", "networking.k8s.io"]
   resources:
   - ingresses
   verbs: ["list", "watch"]
@@ -129,12 +129,6 @@ rules:
   - roles
   verbs: ["list", "watch"]
 {{ end -}}
-{{ if has "rolebindings" $.Values.collectors }}
-- apiGroups: ["rbac.authorization.k8s.io"]
-  resources:
-  - rolebindings
-  verbs: ["list", "watch"]
-{{ end -}}
 {{ if has "nodes" $.Values.collectors }}
 - apiGroups: [""]
   resources:
@@ -166,7 +160,7 @@ rules:
   verbs: ["list", "watch"]
 {{ end -}}
 {{ if has "replicasets" $.Values.collectors }}
-- apiGroups: ["apps"]
+- apiGroups: ["extensions", "apps"]
   resources:
   - replicasets
   verbs: ["list", "watch"]
@@ -187,12 +181,6 @@ rules:
 - apiGroups: [""]
   resources:
   - secrets
-  verbs: ["list", "watch"]
-{{ end -}}
-{{ if has "serviceaccounts" $.Values.collectors }}
-- apiGroups: [""]
-  resources:
-  - serviceaccounts
   verbs: ["list", "watch"]
 {{ end -}}
 {{ if has "services" $.Values.collectors }}
@@ -225,7 +213,7 @@ rules:
     - volumeattachments
   verbs: ["list", "watch"]
 {{ end -}}
-{{-  if or $.Values.kubeRBACProxy.enabled $.Values.authFilter.enabled  }}
+{{-  if $.Values.kubeRBACProxy.enabled  }}
 - apiGroups: ["authentication.k8s.io"]
   resources:
     - tokenreviews

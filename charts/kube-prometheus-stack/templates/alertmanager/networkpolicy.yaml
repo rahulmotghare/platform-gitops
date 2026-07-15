@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ template "kube-prometheus-stack.fullname" . }}-alertmanager
-  namespace: {{ template "kube-prometheus-stack-alertmanager.namespace" . }}
+  namespace: {{ template "kube-prometheus-stack.namespace" . }}
   labels:
     app: {{ template "kube-prometheus-stack.name" . }}-alertmanager
     {{- include "kube-prometheus-stack.labels" . | nindent 4 }}
@@ -38,10 +38,6 @@ spec:
       ports:
         - port: {{ .Values.alertmanager.service.port }}
           protocol: TCP
-        {{- if .Values.alertmanager.networkPolicy.monitoringRules.configReloader }}
-        - port: 8080
-          protocol: TCP
-        {{- end }}
     {{- end }}
     {{- if and (.Values.alertmanager.networkPolicy.enableClusterRules) (.Values.alertmanager.service.clusterPort) }}
     # Allow ingress from other Alertmanager pods (for clustering)
