@@ -15,6 +15,7 @@ rules:
   - get
   - watch
   - delete
+  - patch
 - apiGroups:
   - apps
   resources:
@@ -30,3 +31,21 @@ rules:
   - statefulsets/status
   verbs:
   - update
+- apiGroups:
+  - rollout-operator.grafana.com
+  resources:
+  - zoneawarepoddisruptionbudgets
+  verbs:
+  - get
+  - list
+  - watch
+{{- if .Values.webhooks.enabled }}
+- apiGroups:
+    - rollout-operator.grafana.com
+  resources:
+    - replicatemplates/scale
+    - replicatemplates/status
+  verbs:
+    - get
+    - patch
+  {{- end }}
