@@ -29,6 +29,15 @@ spec:
       targetRevision: main
       ref: values
 
+source:
+  repoURL: https://github.com/rahulmotghare/platform-gitops.git
+  targetRevision: main
+  path: charts/loki
+
+  helm:
+    valueFiles:
+      - values-dev.yaml
+
   destination:
     server: https://kubernetes.default.svc
     namespace: logging
