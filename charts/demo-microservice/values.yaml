@@ -6,10 +6,11 @@
 replicaCount: 2
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+
 image:
-  repository: ghcr.io/rahulmotghare/demo-microservice
+  repository: 437521954518.dkr.ecr.us-east-1.amazonaws.com/demo-microservice
   pullPolicy: IfNotPresent
-  tag: "10"
+  tag: "latest"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
