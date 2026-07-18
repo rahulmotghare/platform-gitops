@@ -70,3 +70,6 @@ compactor:
 
 indexGateway:
   replicas: 0
+
+chunksCache:
+  enabled: false
